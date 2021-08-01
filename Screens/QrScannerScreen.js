@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import  logo  from '../assets/tracevax.png';
 
@@ -51,8 +54,9 @@ export default function QrScannerScreen() {
         style={{height: 400, width: 400}} />
       </View>
       <Text style={styles.maintext}>{text}</Text>
-
-      {scanned && <Button style={styles.button} title="Scan Again?" onPress={() => setScanned(false)} color='#338DCD' />}
+      {scanned && <Input placeholder= "Input Location"/>}
+      {scanned && <Button style={styles.button} title="Submit"/>}
+      {scanned && <Button style={styles.button} type ="outline" title="Scan Again?" onPress={() => setScanned(false)} />}
     </View>
   );
 }
@@ -88,7 +92,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'black',
   },
   image: {
     flex: 0.5,
