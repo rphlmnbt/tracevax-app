@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { Button, Input, Overlay } from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import  logo  from '../assets/tracevax.png';
@@ -10,13 +11,13 @@ export default function QrScannerScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState('PLEASE SCAN QR');
- 
+  
   const askForCameraPermission = () => {
     (async () =>{
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status == 'granted')
     })()
-  };
+  }
   // Request Camera Permission
   useEffect(() =>{
     askForCameraPermission();
@@ -53,9 +54,9 @@ export default function QrScannerScreen() {
         style={{height: 400, width: 400}} />
       </View>
       <Text style={styles.maintext}>{text}</Text>
-      <Input style={styles.input} placeholder="Location" />
-      <Button style={styles.button} title="Submit"/>
-      {scanned && <Button style={styles.button} title="Scan Again?" onPress={() => setScanned(false)} />}
+      {scanned && <Input placeholder= "Input Location"/>}
+      {scanned && <Button style={styles.button} title="Submit"/>}
+      {scanned && <Button style={styles.button} type ="outline" title="Scan Again?" onPress={() => setScanned(false)} />}
     </View>
   );
 }
@@ -100,17 +101,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white'
-  },
-  overlay: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-    borderRadius: 30,
-  },
-  input: {
-    padding: 8,
-    margin: 10,
-    
   }
   
 });
