@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import  logo  from '../assets/tracevax.png';
 
-export default function QrScannerScreen() {
+export default function QrScannerScreen( { navigation } ) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState('PLEASE SCAN QR');
@@ -17,6 +17,9 @@ export default function QrScannerScreen() {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status == 'granted')
     })()
+  }
+  const pressHandler = () => {
+    navigation.navigate('QrLogs')
   }
   // Request Camera Permission
   useEffect(() =>{
@@ -54,6 +57,7 @@ export default function QrScannerScreen() {
         style={{height: 400, width: 400}} />
       </View>
       <Text style={styles.maintext}>{text}</Text>
+      <Button title="Show Logs" onPress={pressHandler} />
       {scanned && <Input placeholder= "Input Location"/>}
       {scanned && <Button style={styles.button} title="Submit"/>}
       {scanned && <Button style={styles.button} type ="outline" title="Scan Again?" onPress={() => setScanned(false)} />}
