@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { logo } from '../assets/tracevax.png';
+import  logo  from '../assets/tracevax.png';
 
-export default function App() {
+export default function QrScannerScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState('PLEASE SCAN QR');
@@ -28,14 +28,14 @@ export default function App() {
   } 
 
   //Check Permission and return the screens
-  if(hasPermission === null){
+  if(!hasPermission){
     return(
       <View style={styles.container}>
       <Text>Requesting for camera permission</Text>
       </View>
     );
   }
-  if(hasPermission === false){
+  if(!hasPermission){
     return (
       <View style={styles.container}>
         <Text style={{margin: 10}}>No Access to Camera </Text>
@@ -45,7 +45,7 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/tracevax.png')} style={styles.image} />
+      <Image source={logo} style={styles.image} />
       <View style={styles.barcodebox}>
         <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleQRCodeScanned}
         style={{height: 400, width: 400}} />
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   image: {
-    flex: 1,
-    aspectRatio: 1.25, 
+    flex: 0.5,
+    aspectRatio: 1.75, 
     resizeMode: 'contain',
     margin: 'auto',
     alignItems: 'center',

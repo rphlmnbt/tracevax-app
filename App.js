@@ -1,10 +1,9 @@
 import React from 'react';
-import QrScanner from './Screens/QrScannerScreen.js';
-
+import Navigator from './routes/mainPage';
 
 export default function App() {
   return (
-    <QrScanner />
+    <Navigator />
   );
 }
 
