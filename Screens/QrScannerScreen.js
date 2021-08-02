@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import  logo  from '../assets/tracevax.png';
+import background from '../assets/tracevax-bg.png'
+import Flatbutton from '../shared/button'
 
 export default function QrScannerScreen( { navigation } ) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -50,27 +51,36 @@ export default function QrScannerScreen( { navigation } ) {
     );
   }
   return (
+    <ImageBackground
+  source={background}
+  style={{width: '100%', height: '100%'}}
+> 
+    
     <View style={styles.container}>
-      <Image source={logo} style={styles.image} />
+      
       <View style={styles.barcodebox}>
         <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleQRCodeScanned}
         style={{height: 400, width: 400}} />
       </View>
       <Text style={styles.maintext}>{text}</Text>
      <Input placeholder= "Input Location"/>
-     <Button style={styles.button} title="Submit"/>
-     <Button title="Show Logs" onPress={pressHandler} />
-      {scanned && <Button style={styles.button} type ="outline" title="Scan Again?" onPress={() => setScanned(false)} />}
+
+
+      <Flatbutton text="Submit"/>
+
+      <Flatbutton  text="Show Logs" style={styles.button} onPress={pressHandler}  />
+      {scanned && <Flatbutton  text="Scan Again?" onPress={() => setScanned(false)} />}
     </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+
   },
   maintext: {
     fontSize: 16,
@@ -96,15 +106,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
+    margin: '3px',
+    backgroundColor: "green"
+
   },
-  image: {
-    flex: 0.5,
-    aspectRatio: 1.75, 
-    resizeMode: 'contain',
-    margin: 'auto',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white'
-  }
+
   
 });
