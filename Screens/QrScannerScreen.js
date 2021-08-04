@@ -107,6 +107,7 @@ export default function QrScannerScreen( { navigation } ) {
     }).start(() =>{
       animation.setValue(0)
     });
+    setScanned(false);
   };
 
   const open = {
