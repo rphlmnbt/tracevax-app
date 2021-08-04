@@ -3,9 +3,20 @@ import { createAppContainer } from 'react-navigation';
 import  QrPage  from '../Screens/QrScannerScreen';
 import QrLogs from '../Screens/QrLogsScreen';
 
+import React from 'react';
+
+import Header from '../shared/Header';
+
+
+
 const screens = {
     QrPage: {
-        screen: QrPage
+        screen: QrPage,
+         navigationOptions: ({  }) => {
+      return {
+        headerTitle: () => <Header title='' />
+      }
+    }
     },
     QrLogs: {
         screen: QrLogs
