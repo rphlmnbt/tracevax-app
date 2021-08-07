@@ -113,8 +113,8 @@ export default function QrScannerScreen( { navigation } ) {
 
   const save= () =>{
     AuthService.postLogs(
-      formRef.current.values.uuid_creds,
-      formRef.current.values.location
+      text,
+      location
     ).then(response=>{
       console.log(response.status);
       setSave();  
