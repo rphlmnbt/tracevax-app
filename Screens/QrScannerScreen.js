@@ -1,24 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { TextInput, StyleSheet, Text, View, ImageBackground, Animated, Dimensions  } from 'react-native';
 import { Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import background from '../assets/tracevax-bg.png'
-import Flatbutton from '../shared/button'
+import background from '../assets/tracevax-bg.png';
+import Flatbutton from '../shared/button';
+import AuthService from '../services/auth.service.js';
 
 export default function QrScannerScreen( { navigation } ) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState('PLEASE SCAN QR');
-  
   const [animation, setAnimation] = useState(new Animated.Value(0));
-  const {height} = Dimensions.get("window");
+  const {height} = Dimensions.get('window');
   const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
-
   const [location, setLocation] = useState('');
+  const formRef = useRef();
 
   const askForCameraPermission = () => {
     (async () =>{
@@ -63,23 +63,24 @@ export default function QrScannerScreen( { navigation } ) {
   const color = animation.interpolate({
     inputRange: [0, 0.2, 1.8, 2],
     outputRange: [
-      "rgba(255, 255, 255, 0.0)",
-      "rgba(45, 57, 82, 0.5)",
-      "rgba(45, 57, 82, 0.5)",
-      "rgba(255, 255, 255, 0.0)"
+      'rgba(255, 255, 255, 0.0)',
+      'rgba(45, 57, 82, 0.5)',
+      'rgba(45, 57, 82, 0.5)',
+      'rgba(255, 255, 255, 0.0)'
     ],
   });
+
   const openModal = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 1],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
+
   const saveModal = animation.interpolate({
     inputRange: [1, 2],
     outputRange: [0, -height],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
-
 
   const modalTrigger = () => {
     Animated.timing(animation, {
@@ -97,17 +98,33 @@ export default function QrScannerScreen( { navigation } ) {
     }).start();
     setScanned(false);
   };
-  
-  const save=()=>{
 
-    Animated.timing(animation,{
-      toValue:2,
-      duration: 500,
-      useNativeDriver:false
-    }).start(() =>{
-      animation.setValue(0)
+  const setSave = () => {
+      Animated.timing(animation,{
+        toValue:2,
+        duration: 500,
+        useNativeDriver:false
+      }).start(() =>{
+          animation.setValue(0)
+      });
+      setScanned(false);
+  };
+
+  const save= () =>{
+    AuthService.postLogs(
+      formRef.current.values.uuid_creds,
+      formRef.current.values.location
+    ).then(response=>{
+      console.log(response.status);
+      setSave();  
+
+    })
+    .catch(e => {
+      console.log(e);
+      
     });
-    setScanned(false);
+
+    
   };
 
   const open = {
@@ -124,7 +141,7 @@ export default function QrScannerScreen( { navigation } ) {
   return (
     <ImageBackground
       source={background}
-      style={{width: '100%', height: '100%'}}
+      style={{width: "100%", height: "100%"}}
     > 
     
       <View style={styles.container}>

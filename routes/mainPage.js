@@ -7,6 +7,7 @@ import React from 'react';
 
 import Header from '../shared/Header';
 
+import SubHeader from '../shared/subHeader';
 
 
 const screens = {
@@ -14,12 +15,17 @@ const screens = {
         screen: QrPage,
          navigationOptions: ({  }) => {
       return {
-        headerTitle: () => <Header title='' />
+        headerTitle: () => <Header/>
       }
     }
     },
     QrLogs: {
-        screen: QrLogs
+        screen: QrLogs,
+        navigationOptions: ({  }) => {
+          return {
+            headerTitle: () => <SubHeader />
+          }
+        }
     }
     
 }
