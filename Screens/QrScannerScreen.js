@@ -6,9 +6,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+<<<<<<< HEAD
 import background from '../assets/tracevax-bg.png';
 import Flatbutton from '../shared/button';
 import AuthService from '../services/auth.service.js';
+=======
+import background from '../assets/tracevax-bg.png'
+import Flatbutton from '../shared/button';
+>>>>>>> qr-logs
 
 export default function QrScannerScreen( { navigation } ) {
   const [hasPermission, setHasPermission] = useState(null);
