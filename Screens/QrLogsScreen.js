@@ -2,18 +2,18 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, Component } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { userId } from "../data/data";
-import { TouchableHighlight } from "react-native-gesture-handler";
-import { ListItem} from 'react-native-elements'
+import { userId } from '../data/data';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import { ListItem} from 'react-native-elements';
+
 
 export default function QrLogsScreen() {
     const [ columns, setColumns ] = useState([
-    "Id",
-    "Timestamp",
-    "Location",
+    'Id',
+    'Timestamp',
+    'Location',
   ])
-    const [users, setUsers] = useState(userId)
-
+    const [users, setUsers] = useState(userId);
     
     const tableHeader = () => (
         <View style={styles.tableHeader}>
