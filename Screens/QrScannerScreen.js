@@ -10,6 +10,7 @@ import background from '../assets/tracevax-bg.png';
 import Flatbutton from '../shared/button';
 import AuthService from '../services/auth.service.js';
 
+
 export default function QrScannerScreen( { navigation } ) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -149,7 +150,7 @@ export default function QrScannerScreen( { navigation } ) {
           <Animated.View style={[styles.background, open]}>
             <View style={[styles.wrap,  styles.center]}>
             <Text style={styles.maintext }>QR Code: {text} {'\n'} Location: {location} {'\n'}</Text>
-                <TouchableOpacity onPress={save} style={ styles.center}>
+                <TouchableOpacity onPress={save()} style={ styles.center}>
                   <Flatbutton text="Submit" />
                 </TouchableOpacity>
                 {scanned &&<TouchableOpacity onPress={close} style={ styles.center}>

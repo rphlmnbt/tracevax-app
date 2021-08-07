@@ -6,20 +6,31 @@ import { userId } from '../data/data';
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { ListItem} from 'react-native-elements';
 import background from '../assets/tracevax-bg.png';
-
+import AuthService from '../services/auth.service.js';
+import axios from 'axios';
 export default function QrLogsScreen() {
     const [ columns, setColumns ] = useState([
     'Id',
     'Timestamp',
     'Location',
   ])
-    const [users, setUsers] = useState(userId);
-    
+    const [isLoading, setLoading] = useState(true);
+    const [users, getUsers] = useState([]);
+    const getLogs = () => {
+        axios.get("http://localhost:8080/api/logs/")
+        .then(function (response){
+            return getUsers(response.data);
+        });
+    };
+    useEffect(() => {
+      getLogs();
+    }, []);
     const tableHeader = () => (
         <View style={styles.tableHeader}>
            {
                 columns.map((column, index) => {
                 { 
+                  
                   if(index == 0){
                     return (
                       <TouchableOpacity
@@ -72,8 +83,8 @@ export default function QrLogsScreen() {
                     renderItem={({item, index})=> {
                         return (
                             <View style={[styles.tableRow,  {backgroundColor: index % 2 == 1 ? "white" : "#e8f4ea"}]}>
-                                <Text style={[styles.columnRowTxt, {width: 30}]}>{item.id}</Text>
-                                <Text style={[styles.columnRowTxt, {width: 90}]}>{item.timestamp}</Text>
+                                <Text style={[styles.columnRowTxt, {width: 30}]}>{item.uuid_creds}</Text>
+                                <Text style={[styles.columnRowTxt, {width: 90}]}>{item.createdAt}</Text>
                                 <Text style={[styles.columnRowTxt, { width: 120}]}>{item.location}</Text>
                             </View> 
                         )
