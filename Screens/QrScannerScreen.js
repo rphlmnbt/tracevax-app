@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { TextInput, StyleSheet, Text, View, ImageBackground, Animated, Dimensions  } from 'react-native';
 import { Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -7,7 +7,7 @@ import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import background from '../assets/tracevax-bg.png'
-import Flatbutton from '../shared/button'
+import Flatbutton from '../shared/button';
 
 export default function QrScannerScreen( { navigation } ) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -15,7 +15,7 @@ export default function QrScannerScreen( { navigation } ) {
   const [text, setText] = useState('PLEASE SCAN QR');
   
   const [animation, setAnimation] = useState(new Animated.Value(0));
-  const {height} = Dimensions.get("window");
+  const {height} = Dimensions.get('window');
   const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
   const [location, setLocation] = useState('');
@@ -63,21 +63,21 @@ export default function QrScannerScreen( { navigation } ) {
   const color = animation.interpolate({
     inputRange: [0, 0.2, 1.8, 2],
     outputRange: [
-      "rgba(255, 255, 255, 0.0)",
-      "rgba(45, 57, 82, 0.5)",
-      "rgba(45, 57, 82, 0.5)",
-      "rgba(255, 255, 255, 0.0)"
+      'rgba(255, 255, 255, 0.0)',
+      'rgba(45, 57, 82, 0.5)',
+      'rgba(45, 57, 82, 0.5)',
+      'rgba(255, 255, 255, 0.0)'
     ],
   });
   const openModal = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 1],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
   const saveModal = animation.interpolate({
     inputRange: [1, 2],
     outputRange: [0, -height],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
 

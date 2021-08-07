@@ -2,16 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, Component } from 'react';
 import { StyleSheet, Text, View, FlatList,ImageBackground, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { userId } from "../data/data";
+import { userId } from '../data/data';
 import { TouchableHighlight } from "react-native-gesture-handler";
-import { ListItem} from 'react-native-elements'
-import background from '../assets/tracevax-bg.png'
+import { ListItem} from 'react-native-elements';
+import background from '../assets/tracevax-bg.png';
 
 export default function QrLogsScreen() {
     const [ columns, setColumns ] = useState([
-    "Id",
-    "Timestamp",
-    "Location",
+    'Id',
+    'Timestamp',
+    'Location',
   ])
     const [users, setUsers] = useState(userId)
 
