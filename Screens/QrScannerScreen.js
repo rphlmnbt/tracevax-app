@@ -37,7 +37,6 @@ export default function QrScannerScreen( { navigation } ) {
 
   //What happens when we scan the bar code
   const handleQRCodeScanned = ({type, data}) => {
-    setScanned(true);
     setText(data);
     console.log('Type: ' + type + '\nData: ' + data)
     modalTrigger();
@@ -112,6 +111,7 @@ export default function QrScannerScreen( { navigation } ) {
   };
 
   const save= () =>{
+    setScanned(true);
     AuthService.postLogs(
       text,
       location
@@ -150,7 +150,7 @@ export default function QrScannerScreen( { navigation } ) {
           <Animated.View style={[styles.background, open]}>
             <View style={[styles.wrap,  styles.center]}>
             <Text style={styles.maintext }>QR Code: {text} {'\n'} Location: {location} {'\n'}</Text>
-                <TouchableOpacity onPress={save()} style={ styles.center}>
+                <TouchableOpacity onPress={save} style={ styles.center}>
                   <Flatbutton text="Submit" />
                 </TouchableOpacity>
                 {scanned &&<TouchableOpacity onPress={close} style={ styles.center}>
@@ -161,7 +161,7 @@ export default function QrScannerScreen( { navigation } ) {
             </Animated.View>
         </View>
         <View style={styles.barcodebox}>
-          <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleQRCodeScanned}
+          <BarCodeScanner onBarCodeScanned={save}
           style={{height: 400, width: 400}} />
         </View>
         
