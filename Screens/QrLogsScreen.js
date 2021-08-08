@@ -9,6 +9,7 @@ import background from '../assets/tracevax-bg.png';
 import AuthService from '../services/auth.service.js';
 import axios from 'axios';
 export default function QrLogsScreen() {
+    const API_URL = process.env.REACT_APP_BACKEND_URL + '/api/logs/';
     const [ columns, setColumns ] = useState([
     'Id',
     'Timestamp',
@@ -17,7 +18,7 @@ export default function QrLogsScreen() {
     const [isLoading, setLoading] = useState(true);
     const [users, getUsers] = useState([]);
     const getLogs = () => {
-        axios.get("http://localhost:8080/api/logs/")
+        axios.get(API_URL)
         .then(function (response){
             return getUsers(response.data);
         });
