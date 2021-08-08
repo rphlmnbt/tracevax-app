@@ -8,10 +8,12 @@ import { ListItem} from 'react-native-elements';
 import background from '../assets/tracevax-bg.png';
 import AuthService from '../services/auth.service.js';
 import axios from 'axios';
+import {REACT_APP_BACKEND_URL} from '@env';
+
 export default function QrLogsScreen() {
-    const API_URL = process.env.REACT_APP_BACKEND_URL + '/api/logs/';
+    const API_URL =  REACT_APP_BACKEND_URL + '/api/logs/';
     const [ columns, setColumns ] = useState([
-    'Id',
+    'UUID',
     'Timestamp',
     'Location',
   ])
