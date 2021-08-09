@@ -39,7 +39,7 @@ export default function QrScannerScreen( { navigation } ) {
   const handleQRCodeScanned = ({type, data}) => {
     setText(data);
     console.log('Type: ' + type + '\nData: ' + data)
-    modalTrigger();
+    save()
   } 
 
   //Check Permission and return the screens
@@ -112,6 +112,8 @@ export default function QrScannerScreen( { navigation } ) {
 
   const save= () =>{
     setScanned(true);
+    console.log(text)
+    console.log(location)
     AuthService.postLogs(
       text,
       location
@@ -161,7 +163,7 @@ export default function QrScannerScreen( { navigation } ) {
             </Animated.View>
         </View>
         <View style={styles.barcodebox}>
-          <BarCodeScanner onBarCodeScanned={save}
+          <BarCodeScanner onBarCodeScanned={handleQRCodeScanned}
           style={{height: 400, width: 400}} />
         </View>
         

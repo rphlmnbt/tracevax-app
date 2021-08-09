@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {REACT_APP_BACKEND_URL} from '@env';
+import {REACT_NATIVE_BACKEND_URL} from '@env';
 
-const API_URL = REACT_APP_BACKEND_URL + '/api/logs/'
+const API_URL = REACT_NATIVE_BACKEND_URL + '/api/logs/'
 
 const postLogs = (uuid_creds, location) =>{
     return axios.post(API_URL,{
