@@ -39,7 +39,14 @@ export default function QrScannerScreen( { navigation } ) {
   const handleQRCodeScanned = ({type, data}) => {
     setText(data);
     console.log('Type: ' + type + '\nData: ' + data)
-    save()
+    save();
+    setTimeout(function() {
+      close();
+    }, 2800);
+    setTimeout(function() {
+      setScanned(false);
+    }, 2800);
+    
   } 
 
   //Check Permission and return the screens
@@ -96,18 +103,19 @@ export default function QrScannerScreen( { navigation } ) {
       useNativeDriver:false
       
     }).start();
-    setScanned(false);
+    // setScanned(false);
   };
 
   const setSave = () => {
-      Animated.timing(animation,{
-        toValue:2,
-        duration: 500,
-        useNativeDriver:false
-      }).start(() =>{
-          animation.setValue(0)
-      });
-      setScanned(false);
+    modalTrigger();
+      // Animated.timing(animation,{
+      //   toValue:1,
+      //   duration: 2000,
+      //   useNativeDriver:false
+      // }).start(() =>{
+      //     animation.setValue(0)
+      // });
+      
   };
 
   const save= () =>{
@@ -152,18 +160,18 @@ export default function QrScannerScreen( { navigation } ) {
           <Animated.View style={[styles.background, open]}>
             <View style={[styles.wrap,  styles.center]}>
             <Text style={styles.maintext }>QR Code: {text} {'\n'} Location: {location} {'\n'}</Text>
-                <TouchableOpacity onPress={save} style={ styles.center}>
+                {/* <TouchableOpacity onPress={save} style={ styles.center}>
                   <Flatbutton text="Submit" />
                 </TouchableOpacity>
                 {scanned &&<TouchableOpacity onPress={close} style={ styles.center}>
                   <Flatbutton  text="Scan Again?" />
-                </TouchableOpacity>}
+                </TouchableOpacity>} */}
                
               </View>
             </Animated.View>
         </View>
         <View style={styles.barcodebox}>
-          <BarCodeScanner onBarCodeScanned={handleQRCodeScanned}
+          <BarCodeScanner onBarCodeScanned={scanned ? undefined :handleQRCodeScanned}
           style={{height: 400, width: 400}} />
         </View>
         
